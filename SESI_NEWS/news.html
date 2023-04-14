@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylenews.css">
+    <script src="https://kit.fontawesome.com/9879f90344.js" crossorigin="anonymous"></script>
+    <title>SESI NEWS</title>
+</head>
+<body>
+
+    <header class="header-container">
+        <div class="logo-container">
+           <h1 class="logo">NewsNow</h1>
+        </div>
+        <div class="search-container">
+           <div class="input-container">
+              <form action="#" id="formnews">
+                 <input type="text" name="news" class="search-input" placeholder="Digite sua busca">
+                 <button type="submit" class="search-button"><i class="fa-solid fa-search"></i></button>
+              </form>
+           </div>
+        </div>
+        <nav class="nav-container">
+           <ul class="nav-list">
+              <li class="nav-item"><a href="#">Notícias</a></li>
+              <li class="nav-item"><a href="#">Política</a></li>
+              <li class="nav-item"><a href="#">Esportes</a></li>
+              <li class="nav-item"><a href="#">Entretenimento</a></li>
+              <li class="nav-item"><a href="#">Mais</a>
+                 <ul class="subnav-list">
+                    <li class="subnav-item"><a href="#">Economia</a></li>
+                    <li class="subnav-item"><a href="#">Tecnologia</a></li>
+                    <li class="subnav-item"><a href="#">Saúde</a></li>
+                    <li class="subnav-item"><a href="#">Ciência</a></li>
+                 </ul>
+              </li>
+           </ul>
+        </nav>
+        <div class="social-container">
+           <ul class="social-list">
+              <li class="social-item"><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+              <li class="social-item"><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+              <li class="social-item"><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+              <li class="social-item"><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+           </ul>
+        </div>
+     </header>
+
+    <main>
+
+        <div id="conteudo"></div>
+
+    </main>
+
+    <footer>
+    </footer>
+
+<!-- ============================ JAVA SCRIPT============================ -->
+    <script>
+        var form = document.querySelector("#formnews")
+        form.addEventListener("submit", function(event) {
+            event.preventDefault()
+
+            var news = document.querySelector("input[name=news]").value
+            
+            var url = 'https://newsapi.org/v2/everything?' +
+            'q='+news+'&' +
+            'from=2023-04-13&' +
+            'sortBy=popularity&' +
+            'apiKey=5405d7492fc240f0b6f81ec2d4e5ed94'; 
+
+            fetch(url)
+            .then(function(response) {
+                return response.json()
+            })            
+            .then(function(data){
+                console.log(data.articles)
+                var conteudo = document.querySelector("#conteudo")
+                var artigos = data.articles
+                var html = ''
+
+                    html += "<div class='caixinha'>"
+
+                        html += "<div class= 'noticiaa'> <p class='titulo'>" +artigos[0].title+ "</p>"
+                        html += "<p class='descricao'>" +artigos[0].description+ "</p>"
+                        html += "<p class='autor'>" +artigos[0].author+ "</p>"
+                        html += "<p class='datadepubli'>" +artigos[0].publishedAt+ "</p>"
+                        html += "<p class='imagem'><img src='"+artigos[0].urlToImage+"' /> </p>"
+                        html += "<p class='conteudo'>" +artigos[0].content+ "</div></p>"         
+                   
+                        html += "<br>"
+                        html += "<br>"
+                        html += "<br>"
+
+                        html += "<div class= 'noticiaa'><p class='titulo'>" +artigos[1].title+ "</p>"
+                        html += "<p class='descricao'>" +artigos[1].description+ "</p>"
+                        html += "<p class='autor'>" +artigos[1].author+ "</p>"
+                        html += "<p class='datadepubli'>" +artigos[1].publishedAt+ "</p>"
+                        html += "<p class='imagem'><img src='"+artigos[1].urlToImage+"' /> </p>"
+                        html += "<p class='conteudo'>" +artigos[1].content+ "</div></p>"     
+
+                        html += "<br>"
+                        html += "<br>"
+                        html += "<br>"
+
+                        html += "<div class= 'noticiaa'><p class='titulo'>" +artigos[2].title+ "</p>"
+                        html += "<p class='descricao'>" +artigos[2].description+ "</p>"
+                        html += "<p class='autor'>" +artigos[2].author+ "</p>"
+                        html += "<p class='datadepubli'>" +artigos[2].publishedAt+ "</p>"
+                        html += "<p class='imagem'><img src='"+artigos[2].urlToImage+"' /> </p>"
+                        html += "<p class='conteudo'>" +artigos[2].content+ "</div></p>"     
+
+                    conteudo.innerHTML += html
+            })
+    })
+    </script>
+</body>
+</html>
